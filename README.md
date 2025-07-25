@@ -1,50 +1,45 @@
-У файлі gradle.properties змінити examplemod на потрібний mod_id
 Змінити бейдж для build: passing, а також усе, що в "***", і прибрати "***"
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 # ![Inasai's Project](images/banner.png)
 
-*** # НАЗВА ***
+*** # Re: Pack ***
 
 ---
 
-▽▽▽АНГЛІЙКСЬКОЮ▽▽▽
-*** ## КОРОТЕНЬКИЙ ОПИС ***
+## Client mod-collection of functions
 
-*** **НАЗВА** ОПИС. ***
-
----
-
-*** ## Features ***
-
-*** **НАЗВА** ЩО НАДАЄ: ***
-
-| МОЖЛИВОСТІ (Feature) | ОПИС (Description) |
-|:---------------------|:-------------------|
-| **МОЖЛИВІСТЬ**       | ОПИС.              |
-| **МОЖЛИВІСТЬ**       | ОПИС.              |
-| **МОЖЛИВІСТЬ**       | ОПИС.              |
-| **МОЖЛИВІСТЬ**       | ОПИС.              |
-| **МОЖЛИВІСТЬ**       | ОПИС.              |
+**Re: Pack** іs a client mod with a set of features, such as playing a sound after death and a guide for brewing potions.
 
 ---
 
-*** ## Compatibility & Requirements ***
+## Features
 
-* **Minecraft Version:** *** ВЕРСІЯ ***
-* **Forge Version:** *** ВЕРСІЯ ***
+**Re: Pack** allows:
+
+| Feature        | Description                                         |
+|:---------------|:----------------------------------------------------|
+| **Sounds**     | Custom and special (1/10 chance) sound after death. |
+| **Guide**      | A simple page of guide for brewing GUI.             |
+
+---
+
+## Compatibility & Requirements
+
+* **Minecraft Version:** 1.20.1
+* **Forge Version:** 1.20.1 - 47.4.0
 
 ---
 
 ## Installation
 [![CurseForge](https://img.shields.io/badge/CurseForge-Download-orange?logo=curseforge&logoColor=white)](*** МОД ***) [![Modrinth](https://img.shields.io/badge/Modrinth-Download-5da545?logo=modrinth&logoColor=white)](*** МОД ***)
 
-1.  **Ensure you have Minecraft Forge installed** for Minecraft *** ВЕРСІЯ ***.
-2.  **Download** the *** НАЗВА МОДУ *** `.jar` file from one of the links.
+1.  **Ensure you have Minecraft Forge installed** for Minecraft 1.20.1.
+2.  **Download** the Re: Pack `.jar` file from one of the links.
 3.  **Place the downloaded `.jar` file** into your Minecraft `mods` folder.
     * To find your `mods` folder:
         * Open your Minecraft Launcher.
         * Go to "Installations".
-        * Hover over your Forge *** ВЕРСІЯ *** installation and click the folder icon.
+        * Hover over your Forge 1.20.1 - 47.4.0 installation and click the folder icon.
         * In the opened folder, locate the `mods` folder. If it doesn't exist, create it.
 4.  **Launch Minecraft** with the Forge profile.
 
@@ -62,39 +57,35 @@ If you have any questions, encounter bugs, or want to provide feedback, please u
 
 ---
 
-▽▽▽УКРАЇНСЬКОЮ▽▽▽
-## КОРОТЕНЬКИЙ ОПИС
+## Клієнтський мод-збірка функцій
 
-**НАЗВА** - ОПИС.
+**Re: Pack** - це клієнтський мод зі збіркою функцій, як-от програвання звуку після смерті, гайд для зіллєваріння..
 
 ---
 
 ## Функціонал
 
-**НАЗВА МОДУ** функції:
+**Re: Pack** функції:
 
-| Функція     | Опис  |
-| :---------- |:------|
-| **Функція** | Опис. |
-| **Функція** | Опис. |
-| **Функція** | Опис. |
-| **Функція** | Опис. |
-| **Функція** | Опис. |
+| Функція     | Опис                                                      |
+|:------------|:----------------------------------------------------------|
+| **Звук**    | Кастомний та спеціальний (1/10 шанс) звук після смерті.   |
+| **Гайд**    | Простенький додаток до GUI варильної стійки з туторіалом. |
 
 ---
 
 ## Сумісність та Вимоги
 
-* **Версія Minecraft:** *** ВЕРСІЯ ***
-* **Версія Forge:** *** ВЕРСІЯ ***
+* **Версія Minecraft:** 1.20.1
+* **Версія Forge:** 1.20.1 - 47.4.0
 
 ---
 
 ## Встановлення
 [![CurseForge](https://img.shields.io/badge/CurseForge-Download-orange?logo=curseforge&logoColor=white)](*** МОД ***) [![Modrinth](https://img.shields.io/badge/Modrinth-Download-5da545?logo=modrinth&logoColor=white)](*** МОД ***)
 
-1.  **Переконайтеся, що у вас встановлено Minecraft Forge** для Minecraft *** ВЕРСІЯ ***.
-2.  **Завантажте** файл `.jar` модифікації *** НАЗВА МОДУ *** за одним із посилань.
+1.  **Переконайтеся, що у вас встановлено Minecraft Forge** для Minecraft 1.20.1.
+2.  **Завантажте** файл `.jar` модифікації Re: Pack за одним із посилань.
 3.  **Розмістіть завантажений файл `.jar`** у папці `mods` вашого Minecraft.
     * Щоб знайти папку `mods`:
         * Відкрийте ваш Minecraft Launcher.
