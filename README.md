@@ -30,7 +30,7 @@
 ---
 
 ## Installation
-[![CurseForge](https://img.shields.io/badge/CurseForge-Download-orange?logo=curseforge&logoColor=white)](*** МОД ***) [![Modrinth](https://img.shields.io/badge/Modrinth-Download-5da545?logo=modrinth&logoColor=white)](*** МОД ***)
+[![CurseForge](https://img.shields.io/badge/CurseForge-Download-orange?logo=curseforge&logoColor=white)](https://www.curseforge.com/minecraft/mc-mods/re-pack) [![Modrinth](https://img.shields.io/badge/Modrinth-Download-5da545?logo=modrinth&logoColor=white)](https://modrinth.com/mod/inasai-repack)
 
 1.  **Ensure you have Minecraft Forge installed** for Minecraft 1.20.1.
 2.  **Download** the Re: Pack `.jar` file from one of the links.
@@ -81,7 +81,7 @@ If you have any questions, encounter bugs, or want to provide feedback, please u
 ---
 
 ## Встановлення
-[![CurseForge](https://img.shields.io/badge/CurseForge-Download-orange?logo=curseforge&logoColor=white)](*** МОД ***) [![Modrinth](https://img.shields.io/badge/Modrinth-Download-5da545?logo=modrinth&logoColor=white)](*** МОД ***)
+[![CurseForge](https://img.shields.io/badge/CurseForge-Download-orange?logo=curseforge&logoColor=white)](https://www.curseforge.com/minecraft/mc-mods/re-pack) [![Modrinth](https://img.shields.io/badge/Modrinth-Download-5da545?logo=modrinth&logoColor=white)](https://modrinth.com/mod/inasai-repack)
 
 1.  **Переконайтеся, що у вас встановлено Minecraft Forge** для Minecraft 1.20.1.
 2.  **Завантажте** файл `.jar` модифікації Re: Pack за одним із посилань.
