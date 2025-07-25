@@ -1,8 +1,7 @@
-Змінити бейдж для build: passing, а також усе, що в "***", і прибрати "***"
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Re: Pack](https://github.com/inasai/Re-Pack/actions/workflows/modBuild.yml/badge.svg)](https://github.com/inasai/Re-Pack/actions/workflows/modBuild.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 # ![Inasai's Project](images/banner.png)
 
-*** # Re: Pack ***
+# Re: Pack
 
 ---
 
