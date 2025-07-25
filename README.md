@@ -52,7 +52,7 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Contact & Support
 
-If you have any questions, encounter bugs, or want to provide feedback, please use the issue tracker on our [GitHub Repository](*** ISSUES МОДУ ***).
+If you have any questions, encounter bugs, or want to provide feedback, please use the issue tracker on our [GitHub Repository](https://github.com/inasai/Re-Pack/issues).
 
 ---
 
@@ -103,4 +103,4 @@ If you have any questions, encounter bugs, or want to provide feedback, please u
 
 ## Контакти та Підтримка
 
-Якщо у вас є запитання, ви виявили помилки або бажаєте надати відгук, будь ласка, використовуйте систему відстеження проблем у нашому [GitHub Репозиторій](*** ISSUES МОДУ ***).
+Якщо у вас є запитання, ви виявили помилки або бажаєте надати відгук, будь ласка, використовуйте систему відстеження проблем у нашому [GitHub Репозиторій](https://github.com/inasai/Re-Pack/issues).

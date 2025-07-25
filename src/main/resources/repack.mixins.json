@@ -2,12 +2,11 @@
   "required": true,
   "minVersion": "0.8",
   "package": "com.inasai.repack.mixin",
-  "refmap": "repack.refmap.json",
+  "refmap": "repack.mixins.refmap.json",
   "compatibilityLevel": "JAVA_17",
   "mixins": [],
   "client": [
-    "MixinLivingEntity",
-    "MixinBrewingStandScreen"
+    "MixinBrewingStandScreen" // Залишаємо тільки цей міксин
   ],
   "injectors": {
     "defaultRequire": 1

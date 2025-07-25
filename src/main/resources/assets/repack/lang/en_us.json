@@ -13,6 +13,16 @@
   "repack.config.guide.enableBrewingGuide.tooltip": "If enabled, a guide image will be shown in the brewing stand GUI.",
   "repack.config.guide.brewingGuideStyle": "Brewing Guide Style",
   "repack.config.guide.brewingGuideStyle.tooltip": "Choose the style of the brewing guide image (e.g., 'default', 'simple').",
+  "repack.config.guide.brewingGuidePosition": "Brewing Guide Position",
+  "repack.config.guide.brewingGuidePosition.tooltip": "Choose where the brewing guide will be displayed relative to the GUI.",
+  "repack.config.guide.brewingGuideOffsetX": "Brewing Guide X Offset",
+  "repack.config.guide.brewingGuideOffsetX.tooltip": "Adjust the horizontal position of the guide.",
+  "repack.config.guide.brewingGuideOffsetY": "Brewing Guide Y Offset",
+  "repack.config.guide.brewingGuideOffsetY.tooltip": "Adjust the vertical position of the guide.",
+  "repack.config.guide.brewingGuideWidth": "Brewing Guide Width",
+  "repack.config.guide.brewingGuideWidth.tooltip": "Set the width of the brewing guide image in pixels.",
+  "repack.config.guide.brewingGuideHeight": "Brewing Guide Height",
+  "repack.config.guide.brewingGuideHeight.tooltip": "Set the height of the brewing guide image in pixels.",
   "repack.subtitle.custom_death": "Custom Death Sound",
   "repack.subtitle.special_death": "Special Death Sound"
 }

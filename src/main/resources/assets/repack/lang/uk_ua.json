@@ -13,6 +13,16 @@
   "repack.config.guide.enableBrewingGuide.tooltip": "Якщо увімкнено, зображення посібника буде відображатися в інтерфейсі стійки для варіння зілля.",
   "repack.config.guide.brewingGuideStyle": "Стиль посібника варіння зілля",
   "repack.config.guide.brewingGuideStyle.tooltip": "Оберіть стиль зображення посібника варіння зілля (наприклад, 'default', 'simple').",
+  "repack.config.guide.brewingGuidePosition": "Позиція гайду зіллєваріння",
+  "repack.config.guide.brewingGuidePosition.tooltip": "Виберіть, де буде відображатися інструкція з приготування відносно графічного інтерфейсу користувача.",
+  "repack.config.guide.brewingGuideOffsetX": "Гайд по вісі X",
+  "repack.config.guide.brewingGuideOffsetX.tooltip": "Відрегулюйте горизонтальне положення гайду.",
+  "repack.config.guide.brewingGuideOffsetY": "Гайд по вісі Y",
+  "repack.config.guide.brewingGuideOffsetY.tooltip": "Відрегулюйте вертикальне положення гайду.",
+  "repack.config.guide.brewingGuideWidth": "Ширина гайду",
+  "repack.config.guide.brewingGuideWidth.tooltip": "Встановіть ширину зображення гайду в пікселях.",
+  "repack.config.guide.brewingGuideHeight": "Висота гайду",
+  "repack.config.guide.brewingGuideHeight.tooltip": "Встановіть висоту зображення гайду в пікселях.",
   "repack.subtitle.custom_death": "Власний звук смерті",
   "repack.subtitle.special_death": "Особливий звук смерті"
 }

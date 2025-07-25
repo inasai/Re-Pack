@@ -30,36 +30,56 @@ public abstract class MixinBrewingStandScreen extends AbstractContainerScreen<Br
     }
 
     @Inject(method = "renderBg", at = @At("TAIL"))
-    protected void repack_renderBrewingGuide(GuiGraphics p_283626_, float p_282542_, int p_281297_, int p_283307_, CallbackInfo ci) {
-        // Перевіряємо, чи увімкнений гайд у конфігу
+    protected void repack_renderBrewingGuide(GuiGraphics pGuiGraphics, float pPartialTick, int pMouseX, int pMouseY, CallbackInfo ci) {
         if (RePackConfig.enableBrewingGuide.get()) {
             String style = RePackConfig.brewingGuideStyle.get();
-            // Виправлення: Використання ResourceLocation.fromNamespaceAndPath
             ResourceLocation guideTexture = ResourceLocation.fromNamespaceAndPath(RePack.MOD_ID, "textures/gui/brewing_guide/" + style + ".png");
-            LOGGER.info("RePack: BrewingGuideMixin - Attempting to render brewing guide. Style: " + style + ", Path: " + guideTexture.toString());
 
-            // Отримуємо позиції GUI на екрані
-            // AbstractContainerScreen вже має поля leftPos та topPos, що є позиціями верхнього лівого кута GUI
-            // imageWidth та imageHeight - це розміри самого GUI (176x166 для більшості ванільних екранів)
+            LOGGER.debug("RePack: BrewingGuideMixin - Attempting to render brewing guide. Style: {}, Path: {}", style, guideTexture);
+
             int guiLeft = this.leftPos;
             int guiTop = this.topPos;
 
-            // Визначаємо позицію для рендерингу гайда
-            // Можна розмістити його поруч з GUI, наприклад, праворуч
-            int renderX = guiLeft + this.imageWidth + 5; // 5 пікселів відступу від краю GUI
-            int renderY = guiTop;
+            int textureWidth = RePackConfig.brewingGuideWidth.get();
+            int textureHeight = RePackConfig.brewingGuideHeight.get();
+            int offsetX = RePackConfig.brewingGuideOffsetX.get();
+            int offsetY = RePackConfig.brewingGuideOffsetY.get();
+            RePackConfig.GuidePosition position = RePackConfig.brewingGuidePosition.get();
 
-            // Задаємо розміри текстури гайда. Переконайтеся, що це відповідає розміру вашого PNG файлу!
-            // Якщо ваш файл не 176x166, змініть ці значення.
-            int textureWidth = 176;
-            int textureHeight = 166;
+            int renderX = 0;
+            int renderY = 0;
 
-            // Рендеримо зображення
-            // Параметри blit: (текстура, x, y, u, v, width, height, textureWidth, textureHeight)
-            // Для повного зображення, u=0, v=0, width=textureWidth, height=textureHeight
-            p_283626_.blit(guideTexture, renderX, renderY, 0, 0, textureWidth, textureHeight);
+            switch (position) {
+                case LEFT:
+                    renderX = guiLeft - textureWidth - offsetX;
+                    renderY = guiTop + offsetY;
+                    break;
+                case RIGHT:
+                    renderX = guiLeft + this.imageWidth + offsetX;
+                    renderY = guiTop + offsetY;
+                    break;
+                case TOP:
+                    renderX = guiLeft + offsetX;
+                    renderY = guiTop - textureHeight - offsetY;
+                    break;
+                case BOTTOM:
+                    renderX = guiLeft + offsetX;
+                    renderY = guiTop + this.imageHeight + offsetY;
+                    break;
+            }
 
-            LOGGER.info("RePack: BrewingGuideMixin - Blit called for guide. Position: X=" + renderX + ", Y=" + renderY + ", Size: W=" + textureWidth + ", H=" + textureHeight);
+            // Перевірка, чи текстура існує перед рендерингом (не обов'язково, але корисно для відладки)
+            // Примітка: Minecraft може кинути виняток, якщо текстура не знайдена, тому це більше для логування.
+            // try {
+            //     Minecraft.getInstance().getTextureManager().bindForSetup(guideTexture);
+            // } catch (Exception e) {
+            //     LOGGER.error("RePack: Failed to bind brewing guide texture: {}", guideTexture, e);
+            //     return; // Не рендеримо, якщо текстура не завантажилася
+            // }
+
+            pGuiGraphics.blit(guideTexture, renderX, renderY, 0, 0, textureWidth, textureHeight);
+
+            LOGGER.debug("RePack: BrewingGuideMixin - Blit called for guide. Position: X={}, Y={}, Size: W={}, H={}. Offset: {},{}", renderX, renderY, textureWidth, textureHeight, offsetX, offsetY);
         } else {
             LOGGER.debug("RePack: BrewingGuideMixin - Brewing guide is disabled in config.");
         }
