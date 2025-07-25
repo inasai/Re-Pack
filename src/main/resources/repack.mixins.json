@@ -6,7 +6,7 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [],
   "client": [
-    "MixinBrewingStandScreen" // Залишаємо тільки цей міксин
+    "MixinBrewingStandScreen"
   ],
   "injectors": {
     "defaultRequire": 1

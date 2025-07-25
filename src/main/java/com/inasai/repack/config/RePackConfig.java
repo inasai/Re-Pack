@@ -2,7 +2,8 @@ package com.inasai.repack.config;
 
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
-import me.shedaniel.clothconfig2.api.AbstractConfigListEntry; // Імпорт для AbstractConfigListEntry
+import me.shedaniel.clothconfig2.api.AbstractConfigListEntry;
+
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraft.network.chat.Component;
@@ -14,18 +15,15 @@ import java.util.function.Function;
 public class RePackConfig {
     public static final ForgeConfigSpec CLIENT_SPEC;
 
-    // Death Category Config
     public static ForgeConfigSpec.BooleanValue enableDeathSounds;
     public static ForgeConfigSpec.IntValue specialDeathChance;
     public static ForgeConfigSpec.EnumValue<ScreenEffectType> specialDeathScreenEffect;
 
-    // Guide Category Config (змінено)
     public static final List<BrewingGuideConfig> BREWING_GUIDES = new ArrayList<>();
 
     static {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
 
-        // Death Category
         builder.push("Death Category");
         enableDeathSounds = builder
                 .comment("Enable custom death sounds.")
@@ -44,7 +42,7 @@ public class RePackConfig {
         // Ініціалізуємо конфігурацію для перших двох частин гайду
         // Ви можете додати більше BrewingGuideConfig.define() для додаткових частин
         BREWING_GUIDES.add(BrewingGuideConfig.define(builder, "part1", true, "guide1", GuidePosition.RIGHT, 5, 0, 170, 166));
-        BREWING_GUIDES.add(BrewingGuideConfig.define(builder, "part2", false, "guide2", GuidePosition.RIGHT, 5, 130, 186, 193)); // Приклад для другої частини
+        BREWING_GUIDES.add(BrewingGuideConfig.define(builder, "part2", false, "guide2", GuidePosition.RIGHT, 5, 130, 186, 193));
 
         builder.pop();
 

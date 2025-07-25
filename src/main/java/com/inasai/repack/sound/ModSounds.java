@@ -1,17 +1,20 @@
 package com.inasai.repack.sound;
 
 import com.inasai.repack.RePack;
+
+import com.mojang.logging.LogUtils;
+
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+
 import org.slf4j.Logger;
-import com.mojang.logging.LogUtils;
 
 public class ModSounds {
-    private static final Logger LOGGER = LogUtils.getLogger(); // Додаємо логер
+    private static final Logger LOGGER = LogUtils.getLogger();
 
     public static final DeferredRegister<SoundEvent> SOUND_EVENTS =
             DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, RePack.MOD_ID);
@@ -32,6 +35,6 @@ public class ModSounds {
 
     public static void register(IEventBus eventBus) {
         SOUND_EVENTS.register(eventBus);
-        LOGGER.info("RePack: Mod Sounds registered to Event Bus."); // Додатковий лог
+        LOGGER.info("RePack: Mod Sounds registered to Event Bus.");
     }
 }

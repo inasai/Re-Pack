@@ -2,6 +2,7 @@ package com.inasai.repack.event;
 
 import com.inasai.repack.RePack;
 import com.inasai.repack.config.RePackConfig;
+
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.fml.ModLoadingContext;

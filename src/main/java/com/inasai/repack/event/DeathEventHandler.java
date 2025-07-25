@@ -3,30 +3,32 @@ package com.inasai.repack.event;
 import com.inasai.repack.RePack;
 import com.inasai.repack.config.RePackConfig;
 import com.inasai.repack.sound.ModSounds;
+
+import com.mojang.logging.LogUtils;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.core.particles.ParticleTypes; // <-- НОВИЙ ІМПОРТ
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundSource;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent; // <-- НОВИЙ ІМПОРТ для PlayerRespawnEvent
-import net.minecraftforge.event.TickEvent; // <-- НОВИЙ ІМПОРТ для TickEvent
+import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import org.slf4j.Logger;
-import com.mojang.logging.LogUtils;
 
 import java.util.Random;
+
+import org.slf4j.Logger;
 
 @Mod.EventBusSubscriber(modid = RePack.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class DeathEventHandler {
     private static final Logger LOGGER = LogUtils.getLogger();
     private static final Random random = new Random();
 
-    // НОВІ ЗМІННІ ДЛЯ КЕРУВАННЯ ЕФЕКТАМИ
-    public static boolean isSpecialDeathEffectActive = false; // Використовуватимемо для активації/деактивації ефекту
-    private static long effectStartTime = 0; // Для відстеження часу початку ефекту
-    private static final long EFFECT_DURATION_MS = 2000; // Тривалість ефекту в мілісекундах (2 секунди)
+    public static boolean isSpecialDeathEffectActive = false;
+    private static long effectStartTime = 0;
+    private static final long EFFECT_DURATION_MS = 2000;
 
     @SubscribeEvent
     public static void onLivingDeath(LivingDeathEvent event) {
@@ -57,11 +59,11 @@ public class DeathEventHandler {
 
                     RePackConfig.ScreenEffectType effectType = RePackConfig.specialDeathScreenEffect.get();
                     if (effectType != RePackConfig.ScreenEffectType.NONE) {
-                        isSpecialDeathEffectActive = true; // АКТИВУЄМО ЕФЕКТ
-                        effectStartTime = System.currentTimeMillis(); // ЗБЕРІГАЄМО ЧАС ПОЧАТКУ
+                        isSpecialDeathEffectActive = true;
+                        effectStartTime = System.currentTimeMillis();
                         LOGGER.info("RePack: DeathEventHandler - Triggering screen effect: {}.", effectType);
                     } else {
-                        isSpecialDeathEffectActive = false; // ВИКЛЮЧАЄМО, ЯКЩО NONE
+                        isSpecialDeathEffectActive = false;
                         LOGGER.info("RePack: DeathEventHandler - Screen effect is NONE, no effect triggered.");
                     }
 
@@ -74,11 +76,11 @@ public class DeathEventHandler {
                     } else {
                         LOGGER.warn("RePack: DeathEventHandler - CUSTOM_DEATH_SOUND is not present/registered!");
                     }
-                    isSpecialDeathEffectActive = false; // Виключаємо ефект, якщо це не особлива смерть
+                    isSpecialDeathEffectActive = false;
                 }
             } else {
                 LOGGER.debug("RePack: DeathEventHandler - Death sounds disabled in config.");
-                isSpecialDeathEffectActive = false; // Виключаємо ефект, якщо звуки вимкнені
+                isSpecialDeathEffectActive = false;
             }
         } else {
             if (event.getEntity() != null) {
@@ -86,33 +88,27 @@ public class DeathEventHandler {
             } else {
                 LOGGER.debug("RePack: DeathEventHandler - LivingDeathEvent for null entity.");
             }
-            isSpecialDeathEffectActive = false; // Виключаємо ефект, якщо це не локальний гравець
+            isSpecialDeathEffectActive = false;
         }
     }
 
-    // НОВИЙ МЕТОД: Обробка події тіку на клієнті
     @SubscribeEvent
     public static void onClientTick(TickEvent.ClientTickEvent event) {
-        // Перевіряємо, що ми на клієнтській стороні і це кінець тіку (фаза END)
         if (event.phase == TickEvent.Phase.END && Minecraft.getInstance().player != null && Minecraft.getInstance().level != null) {
-            // Перевіряємо, чи активний ефект і чи обрано тип PARTICLES
             if (isSpecialDeathEffectActive && RePackConfig.specialDeathScreenEffect.get() == RePackConfig.ScreenEffectType.PARTICLES) {
-                // Перевіряємо тривалість ефекту
                 if (System.currentTimeMillis() - effectStartTime < EFFECT_DURATION_MS) {
-                    // Додаємо кілька темних частинок навколо гравця
-                    for (int i = 0; i < 10; i++) { // Збільшимо кількість частинок за тік для кращої помітності
+                    for (int i = 0; i < 10; i++) {
                         Minecraft.getInstance().level.addParticle(
                                 ParticleTypes.SMOKE, // Тип частинки (диму)
-                                Minecraft.getInstance().player.getX() + (random.nextDouble() - 0.5) * 1.0, // X координата з невеликим зміщенням
-                                Minecraft.getInstance().player.getY() + 0.5 + (random.nextDouble() - 0.5) * 1.0, // Y координата (біля гравця)
-                                Minecraft.getInstance().player.getZ() + (random.nextDouble() - 0.5) * 1.0, // Z координата з невеликим зміщенням
-                                (random.nextDouble() - 0.5) * 0.05, // Швидкість по X
-                                0.05 + random.nextDouble() * 0.05, // Швидкість по Y (частинки піднімаються)
-                                (random.nextDouble() - 0.5) * 0.05 // Швидкість по Z
+                                Minecraft.getInstance().player.getX() + (random.nextDouble() - 0.5) * 1.0,
+                                Minecraft.getInstance().player.getY() + 0.5 + (random.nextDouble() - 0.5) * 1.0,
+                                Minecraft.getInstance().player.getZ() + (random.nextDouble() - 0.5) * 1.0,
+                                (random.nextDouble() - 0.5) * 0.05,
+                                0.05 + random.nextDouble() * 0.05,
+                                (random.nextDouble() - 0.5) * 0.05
                         );
                     }
                 } else {
-                    // Якщо час ефекту минув, деактивуємо його
                     isSpecialDeathEffectActive = false;
                     LOGGER.info("RePack: Particle effect duration ended. Deactivating.");
                 }
@@ -120,13 +116,11 @@ public class DeathEventHandler {
         }
     }
 
-    // НОВИЙ МЕТОД: Обробка події відродження гравця для скидання ефекту
     @SubscribeEvent
     public static void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
-        // Перевіряємо, що це клієнтська сторона і відродився саме локальний гравець
         if (event.getEntity().level().isClientSide() && event.getEntity().equals(Minecraft.getInstance().player)) {
             LOGGER.info("RePack: Local Player respawned. Resetting special death effects.");
-            isSpecialDeathEffectActive = false; // Скидаємо прапорець активації
+            isSpecialDeathEffectActive = false;
         }
     }
 }

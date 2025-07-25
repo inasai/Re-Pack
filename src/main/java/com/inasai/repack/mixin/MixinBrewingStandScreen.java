@@ -2,8 +2,11 @@ package com.inasai.repack.mixin;
 
 import com.inasai.repack.RePack;
 import com.inasai.repack.config.RePackConfig;
-import com.inasai.repack.config.RePackConfig.BrewingGuideConfig; // Імпорт нового класу конфігурації
-import com.mojang.blaze3d.systems.RenderSystem; // Для встановлення кольору (необов'язково)
+import com.inasai.repack.config.RePackConfig.BrewingGuideConfig;
+
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.logging.LogUtils;
+
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.BrewingStandScreen;
@@ -13,8 +16,8 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.BrewingStandMenu;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
 import org.slf4j.Logger;
-import com.mojang.logging.LogUtils;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -33,7 +36,6 @@ public abstract class MixinBrewingStandScreen extends AbstractContainerScreen<Br
 
     @Inject(method = "renderBg", at = @At("TAIL"))
     protected void repack_renderBrewingGuide(GuiGraphics pGuiGraphics, float pPartialTick, int pMouseX, int pMouseY, CallbackInfo ci) {
-        // Проходимося по всіх налаштованих посібниках
         for (BrewingGuideConfig guideConfig : RePackConfig.BREWING_GUIDES) {
             if (guideConfig.enableBrewingGuide.get()) {
                 String style = guideConfig.brewingGuideStyle.get();
@@ -72,14 +74,13 @@ public abstract class MixinBrewingStandScreen extends AbstractContainerScreen<Br
                         break;
                 }
 
-                // Встановлюємо blend mode для прозорості, якщо ваші PNG мають альфа-канал
                 RenderSystem.enableBlend();
                 RenderSystem.defaultBlendFunc();
-                RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F); // Встановлення білого кольору та повної непрозорості
+                RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
                 pGuiGraphics.blit(guideTexture, renderX, renderY, 0, 0, textureWidth, textureHeight);
 
-                RenderSystem.disableBlend(); // Вимикаємо blend після рендерингу
+                RenderSystem.disableBlend();
 
                 LOGGER.debug("RePack: BrewingGuideMixin - Blit called for guide '{}'. Position: X={}, Y={}, Size: W={}, H={}. Offset: {},{}", guideConfig.id, renderX, renderY, textureWidth, textureHeight, offsetX, offsetY);
             } else {

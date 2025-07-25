@@ -28,6 +28,6 @@
   "repack.config.guide.brewingGuideHeight": "Guide Height",
   "repack.config.guide.brewingGuideHeight.tooltip": "Set the height of this guide part image in pixels. MUST match your PNG file!",
 
-  "repack.subtitle.custom_death": "The Witch Saved You",
+  "repack.subtitle.custom_death": "The Witch Whispers",
   "repack.subtitle.special_death": "The Witch Calls"
 }

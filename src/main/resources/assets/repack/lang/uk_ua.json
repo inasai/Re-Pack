@@ -28,6 +28,6 @@
   "repack.config.guide.brewingGuideHeight": "Висота гайду",
   "repack.config.guide.brewingGuideHeight.tooltip": "Встановіть висоту зображення гайду в пікселях. Як у файлі .png!",
 
-  "repack.subtitle.custom_death": "Відьма врятувала тебе",
+  "repack.subtitle.custom_death": "Відьма шепоче",
   "repack.subtitle.special_death": "Відьма кличе"
 }
