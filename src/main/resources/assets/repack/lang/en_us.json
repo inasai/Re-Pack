@@ -1,0 +1,18 @@
+{
+  "itemGroup.repack.main": "Re: Pack",
+  "repack.config.title": "Re: Pack Configuration",
+  "repack.config.category.death": "Death Settings",
+  "repack.config.death.enableSounds": "Enable Custom Death Sounds",
+  "repack.config.death.enableSounds.tooltip": "If enabled, custom sounds will play upon death.",
+  "repack.config.death.specialChance": "Special Death Chance (1/X)",
+  "repack.config.death.specialChance.tooltip": "The chance for a special death event (1 in X deaths). Higher number means less frequent.",
+  "repack.config.death.screenEffect": "Special Death Screen Effect",
+  "repack.config.death.screenEffect.tooltip": "Choose the visual effect for special death.",
+  "repack.config.category.guide": "Guide Settings",
+  "repack.config.guide.enableBrewingGuide": "Enable Brewing Guide",
+  "repack.config.guide.enableBrewingGuide.tooltip": "If enabled, a guide image will be shown in the brewing stand GUI.",
+  "repack.config.guide.brewingGuideStyle": "Brewing Guide Style",
+  "repack.config.guide.brewingGuideStyle.tooltip": "Choose the style of the brewing guide image (e.g., 'default', 'simple').",
+  "repack.subtitle.custom_death": "Custom Death Sound",
+  "repack.subtitle.special_death": "Special Death Sound"
+}

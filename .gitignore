@@ -1,0 +1,59 @@
+# eclipse
+bin
+tmp
+*.launch
+.settings
+.metadata
+.classpath
+.project
+
+# idea
+out
+*.ipr
+*.iws
+*.iml
+.idea
+*.log
+
+# gradle
+build
+.gradle
+*.jar
+*.war
+*.ear
+*.zip
+*.tar
+*.tar.gz
+!gradle-wrapper.jar
+!gradlew
+!gradlew.bat
+
+# OS generated files
+.DS_Store
+.localized
+Thumbs.db
+
+# Files from Forge MDK
+forge*changelog.txt
+
+# Minecraft Forge specific
+natives
+.idea_modules
+.factorypath
+local
+logs
+crash-reports/
+debug.log
+latest.log
+
+# other
+eclipse
+run
+usefullCommands
+
+# General
+*.lock
+*.bak
+*.swp
+*.swo
+*.tmp

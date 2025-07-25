@@ -1,0 +1,47 @@
+# Назва робочого процесу
+name: НАЗВА
+
+# Коли запускати процес
+on:
+  push:
+    branches: [ "main" ] # Запускати при пуші в гілку 'main' (або 'master', якщо у вас так)
+  pull_request:
+    branches: [ "main" ] # Запускати при створенні Pull Request до гілки 'main'
+
+# Визначення завдань (jobs)
+jobs:
+  build: # Назва завдання (може бути будь-якою)
+    runs-on: ubuntu-latest # Виконувати на віртуальній машині Ubuntu
+
+    steps:
+      # Крок 1: Перевірка коду з репозиторію
+      - name: Checkout Repository
+        uses: actions/checkout@v4 # Використовувати офіційний action для checkout коду
+
+      # Крок 2: Налаштування Java Development Kit (JDK)
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4 # Використовувати офіційний action для налаштування Java
+        with:
+          java-version: '17' # Версія Java, яка потрібна для Minecraft 1.20.1 та Forge
+          distribution: 'temurin' # Рекомендований дистрибутив JDK
+          cache: 'gradle' # Кешувати залежності Gradle для швидших збірок
+
+      # Крок 3: Надання прав на виконання Gradle Wrapper
+      # Це необхідно на Linux/macOS, щоб Gradle Wrapper міг бути виконаний
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      # Крок 4: Запуск збірки Gradle (build)
+      # 'build' - це стандартна задача Gradle, яка компілює код, запускає тести тощо.
+      - name: Build with Gradle
+        run: ./gradlew build # Запуск Gradle через Wrapper
+
+      # (Необов'язково) Крок 5: Завантаження артефактів збірки
+      # Якщо ви хочете, щоб .jar файл вашого моду був доступний як артефакт
+      # після успішної збірки на GitHub Actions
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: macromenu-build-artifacts # Назва артефакту
+          path: build/libs/*.jar # Шлях до вашого .jar файлу після збірки
+          retention-days: 7 # Зберігати артефакти 7 днів

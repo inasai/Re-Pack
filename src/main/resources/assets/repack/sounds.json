@@ -1,0 +1,20 @@
+{
+  "custom_death": {
+    "sounds": [
+      {
+        "name": "repack:custom_death",
+        "stream": false
+      }
+    ],
+    "subtitle": "repack.subtitle.custom_death"
+  },
+  "special_death": {
+    "sounds": [
+      {
+        "name": "repack:special_death",
+        "stream": false
+      }
+    ],
+    "subtitle": "repack.subtitle.special_death"
+  }
+}

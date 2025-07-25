@@ -1,0 +1,18 @@
+{
+  "itemGroup.repack.main": "Re: Pack",
+  "repack.config.title": "Налаштування Re: Pack",
+  "repack.config.category.death": "Налаштування Смерті",
+  "repack.config.death.enableSounds": "Увімкнути власні звуки смерті",
+  "repack.config.death.enableSounds.tooltip": "Якщо увімкнено, відтворюватимуться власні звуки після смерті.",
+  "repack.config.death.specialChance": "Шанс особливої смерті (1/X)",
+  "repack.config.death.specialChance.tooltip": "Шанс на особливу подію смерті (1 з X смертей). Більше число означає рідше.",
+  "repack.config.death.screenEffect": "Ефект екрану особливої смерті",
+  "repack.config.death.screenEffect.tooltip": "Оберіть візуальний ефект для особливої смерті.",
+  "repack.config.category.guide": "Налаштування Посібника",
+  "repack.config.guide.enableBrewingGuide": "Увімкнути посібник варіння зілля",
+  "repack.config.guide.enableBrewingGuide.tooltip": "Якщо увімкнено, зображення посібника буде відображатися в інтерфейсі стійки для варіння зілля.",
+  "repack.config.guide.brewingGuideStyle": "Стиль посібника варіння зілля",
+  "repack.config.guide.brewingGuideStyle.tooltip": "Оберіть стиль зображення посібника варіння зілля (наприклад, 'default', 'simple').",
+  "repack.subtitle.custom_death": "Власний звук смерті",
+  "repack.subtitle.special_death": "Особливий звук смерті"
+}

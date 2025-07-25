@@ -1,0 +1,22 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        // Репозиторій для плагіна Mixin
+        maven {
+            name = "Sponge"
+            url = "https://repo.spongepowered.org/maven"
+        }
+        // Forge репозиторій для плагіна Forge Gradle (якщо він потрібен тут)
+        maven {
+            name = 'MinecraftForge'
+            url = 'https://maven.minecraftforge.net/'
+        }
+    }
+}
+
+// Цей блок плагінів залишається у settings.gradle, оскільки він стосується інструментарію Gradle
+plugins {
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '0.7.0'
+}
+
+rootProject.name = "RePack"
