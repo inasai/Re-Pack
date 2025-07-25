@@ -22,54 +22,61 @@ public class DeathEventHandler {
 
     @SubscribeEvent
     public static void onLivingDeath(LivingDeathEvent event) {
-        // Перевіряємо, чи ми на клієнтській стороні
-        if (event.getEntity().level().isClientSide()) {
-            // Перевіряємо, чи померлий об'єкт є локальним гравцем Minecraft
-            if (event.getEntity() instanceof LocalPlayer player) {
-                // Додаємо більше логів, щоб переконатися, що цей блок коду виконується
-                LOGGER.info("RePack: DeathEventHandler - Captured LivingDeathEvent for LocalPlayer: {}", player.getName().getString());
+        // Отримати поточного гравця Minecraft. Цей метод доступний лише на клієнтській стороні.
+        // Перевіряємо, чи існує клієнтський світ і клієнтський гравець.
+        if (Minecraft.getInstance().level == null || Minecraft.getInstance().player == null) {
+            LOGGER.debug("RePack: DeathEventHandler - Minecraft client world or player is null. Skipping event processing.");
+            return;
+        }
 
-                Minecraft mc = Minecraft.getInstance();
+        LocalPlayer clientPlayer = Minecraft.getInstance().player;
 
-                if (RePackConfig.enableDeathSounds.get()) {
-                    LOGGER.info("RePack: DeathEventHandler - Custom death sounds are enabled in config.");
+        // Перевіряємо, чи померла сутність є локальним клієнтським гравцем.
+        // Використовуємо .equals() для порівняння об'єктів.
+        if (event.getEntity().equals(clientPlayer)) {
+            LOGGER.info("RePack: DeathEventHandler - Captured LivingDeathEvent for LOCAL PLAYER: {}", clientPlayer.getName().getString());
 
-                    int specialDeathChance = RePackConfig.specialDeathChance.get();
+            if (RePackConfig.enableDeathSounds.get()) {
+                LOGGER.info("RePack: DeathEventHandler - Custom death sounds are enabled in config.");
 
-                    if (specialDeathChance > 0 && random.nextInt(specialDeathChance) == 0) {
-                        LOGGER.info("RePack: DeathEventHandler - Special death chance hit! (1/" + specialDeathChance + ")");
-                        if (ModSounds.SPECIAL_DEATH_SOUND.isPresent()) {
-                            LOGGER.info("RePack: DeathEventHandler - Playing SPECIAL death sound: {}", ModSounds.SPECIAL_DEATH_SOUND.get().getLocation());
-                            // Можемо спробувати інший SoundSource, наприклад PLAYERS, або просто MASTER
-                            mc.level.playSound(player, player.getX(), player.getY(), player.getZ(),
-                                    ModSounds.SPECIAL_DEATH_SOUND.get(), SoundSource.MASTER, 1.0F, 1.0F); // Гучність 1.0F
-                        } else {
-                            LOGGER.warn("RePack: DeathEventHandler - SPECIAL_DEATH_SOUND is not present/registered!");
-                        }
+                int specialDeathChance = RePackConfig.specialDeathChance.get();
 
-                        RePackConfig.ScreenEffectType effectType = RePackConfig.specialDeathScreenEffect.get();
-                        if (effectType != RePackConfig.ScreenEffectType.NONE) {
-                            LOGGER.info("RePack: DeathEventHandler - Triggering screen effect: {}. (Implementation needed)", effectType);
-                            // TODO: Implement screen effects (shake, particles, GIF) here
-                        }
+                if (specialDeathChance > 0 && random.nextInt(specialDeathChance) == 0) {
+                    LOGGER.info("RePack: DeathEventHandler - Special death chance hit! (1/" + specialDeathChance + ")");
+                    if (ModSounds.SPECIAL_DEATH_SOUND.isPresent()) {
+                        LOGGER.info("RePack: DeathEventHandler - Playing SPECIAL death sound: {}", ModSounds.SPECIAL_DEATH_SOUND.get().getLocation());
+                        // Відтворюємо звук через клієнтський світ
+                        clientPlayer.level().playSound(clientPlayer, clientPlayer.getX(), clientPlayer.getY(), clientPlayer.getZ(),
+                                ModSounds.SPECIAL_DEATH_SOUND.get(), SoundSource.MASTER, 1.0F, 1.0F);
                     } else {
-                        LOGGER.info("RePack: DeathEventHandler - Normal death. Playing CUSTOM death sound.");
-                        if (ModSounds.CUSTOM_DEATH_SOUND.isPresent()) {
-                            LOGGER.info("RePack: DeathEventHandler - Playing CUSTOM death sound: {}", ModSounds.CUSTOM_DEATH_SOUND.get().getLocation());
-                            mc.level.playSound(player, player.getX(), player.getY(), player.getZ(),
-                                    ModSounds.CUSTOM_DEATH_SOUND.get(), SoundSource.MASTER, 1.0F, 1.0F); // Гучність 1.0F
-                        } else {
-                            LOGGER.warn("RePack: DeathEventHandler - CUSTOM_DEATH_SOUND is not present/registered!");
-                        }
+                        LOGGER.warn("RePack: DeathEventHandler - SPECIAL_DEATH_SOUND is not present/registered!");
+                    }
+
+                    RePackConfig.ScreenEffectType effectType = RePackConfig.specialDeathScreenEffect.get();
+                    if (effectType != RePackConfig.ScreenEffectType.NONE) {
+                        LOGGER.info("RePack: DeathEventHandler - Triggering screen effect: {}. (Implementation needed)", effectType);
+                        // TODO: Implement screen effects (shake, particles, GIF) here
                     }
                 } else {
-                    LOGGER.debug("RePack: DeathEventHandler - Death sounds disabled in config.");
+                    LOGGER.info("RePack: DeathEventHandler - Normal death. Playing CUSTOM death sound.");
+                    if (ModSounds.CUSTOM_DEATH_SOUND.isPresent()) {
+                        LOGGER.info("RePack: DeathEventHandler - Playing CUSTOM death sound: {}", ModSounds.CUSTOM_DEATH_SOUND.get().getLocation());
+                        clientPlayer.level().playSound(clientPlayer, clientPlayer.getX(), clientPlayer.getY(), clientPlayer.getZ(),
+                                ModSounds.CUSTOM_DEATH_SOUND.get(), SoundSource.MASTER, 1.0F, 1.0F);
+                    } else {
+                        LOGGER.warn("RePack: DeathEventHandler - CUSTOM_DEATH_SOUND is not present/registered!");
+                    }
                 }
             } else {
-                LOGGER.debug("RePack: DeathEventHandler - LivingDeathEvent for non-LocalPlayer: {}", event.getEntity().getName().getString());
+                LOGGER.debug("RePack: DeathEventHandler - Death sounds disabled in config.");
             }
         } else {
-            LOGGER.debug("RePack: DeathEventHandler - LivingDeathEvent on server side for: {}", event.getEntity().getName().getString());
+            // Це може бути смерть іншої сутності або гравця, що не є локальним клієнтом
+            if (event.getEntity() != null) {
+                LOGGER.debug("RePack: DeathEventHandler - LivingDeathEvent for non-local player/entity: {}", event.getEntity().getName().getString());
+            } else {
+                LOGGER.debug("RePack: DeathEventHandler - LivingDeathEvent for null entity.");
+            }
         }
     }
 }

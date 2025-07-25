@@ -2,6 +2,8 @@ package com.inasai.repack.mixin;
 
 import com.inasai.repack.RePack;
 import com.inasai.repack.config.RePackConfig;
+import com.inasai.repack.config.RePackConfig.BrewingGuideConfig; // Імпорт нового класу конфігурації
+import com.mojang.blaze3d.systems.RenderSystem; // Для встановлення кольору (необов'язково)
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.BrewingStandScreen;
@@ -31,57 +33,58 @@ public abstract class MixinBrewingStandScreen extends AbstractContainerScreen<Br
 
     @Inject(method = "renderBg", at = @At("TAIL"))
     protected void repack_renderBrewingGuide(GuiGraphics pGuiGraphics, float pPartialTick, int pMouseX, int pMouseY, CallbackInfo ci) {
-        if (RePackConfig.enableBrewingGuide.get()) {
-            String style = RePackConfig.brewingGuideStyle.get();
-            ResourceLocation guideTexture = ResourceLocation.fromNamespaceAndPath(RePack.MOD_ID, "textures/gui/brewing_guide/" + style + ".png");
+        // Проходимося по всіх налаштованих посібниках
+        for (BrewingGuideConfig guideConfig : RePackConfig.BREWING_GUIDES) {
+            if (guideConfig.enableBrewingGuide.get()) {
+                String style = guideConfig.brewingGuideStyle.get();
+                ResourceLocation guideTexture = ResourceLocation.fromNamespaceAndPath(RePack.MOD_ID, "textures/gui/brewing_guide/" + style + ".png");
 
-            LOGGER.debug("RePack: BrewingGuideMixin - Attempting to render brewing guide. Style: {}, Path: {}", style, guideTexture);
+                LOGGER.debug("RePack: BrewingGuideMixin - Attempting to render brewing guide '{}'. Style: {}, Path: {}", guideConfig.id, style, guideTexture);
 
-            int guiLeft = this.leftPos;
-            int guiTop = this.topPos;
+                int guiLeft = this.leftPos;
+                int guiTop = this.topPos;
 
-            int textureWidth = RePackConfig.brewingGuideWidth.get();
-            int textureHeight = RePackConfig.brewingGuideHeight.get();
-            int offsetX = RePackConfig.brewingGuideOffsetX.get();
-            int offsetY = RePackConfig.brewingGuideOffsetY.get();
-            RePackConfig.GuidePosition position = RePackConfig.brewingGuidePosition.get();
+                int textureWidth = guideConfig.brewingGuideWidth.get();
+                int textureHeight = guideConfig.brewingGuideHeight.get();
+                int offsetX = guideConfig.brewingGuideOffsetX.get();
+                int offsetY = guideConfig.brewingGuideOffsetY.get();
+                RePackConfig.GuidePosition position = guideConfig.brewingGuidePosition.get();
 
-            int renderX = 0;
-            int renderY = 0;
+                int renderX = 0;
+                int renderY = 0;
 
-            switch (position) {
-                case LEFT:
-                    renderX = guiLeft - textureWidth - offsetX;
-                    renderY = guiTop + offsetY;
-                    break;
-                case RIGHT:
-                    renderX = guiLeft + this.imageWidth + offsetX;
-                    renderY = guiTop + offsetY;
-                    break;
-                case TOP:
-                    renderX = guiLeft + offsetX;
-                    renderY = guiTop - textureHeight - offsetY;
-                    break;
-                case BOTTOM:
-                    renderX = guiLeft + offsetX;
-                    renderY = guiTop + this.imageHeight + offsetY;
-                    break;
+                switch (position) {
+                    case LEFT:
+                        renderX = guiLeft - textureWidth - offsetX;
+                        renderY = guiTop + offsetY;
+                        break;
+                    case RIGHT:
+                        renderX = guiLeft + this.imageWidth + offsetX;
+                        renderY = guiTop + offsetY;
+                        break;
+                    case TOP:
+                        renderX = guiLeft + offsetX;
+                        renderY = guiTop - textureHeight - offsetY;
+                        break;
+                    case BOTTOM:
+                        renderX = guiLeft + offsetX;
+                        renderY = guiTop + this.imageHeight + offsetY;
+                        break;
+                }
+
+                // Встановлюємо blend mode для прозорості, якщо ваші PNG мають альфа-канал
+                RenderSystem.enableBlend();
+                RenderSystem.defaultBlendFunc();
+                RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F); // Встановлення білого кольору та повної непрозорості
+
+                pGuiGraphics.blit(guideTexture, renderX, renderY, 0, 0, textureWidth, textureHeight);
+
+                RenderSystem.disableBlend(); // Вимикаємо blend після рендерингу
+
+                LOGGER.debug("RePack: BrewingGuideMixin - Blit called for guide '{}'. Position: X={}, Y={}, Size: W={}, H={}. Offset: {},{}", guideConfig.id, renderX, renderY, textureWidth, textureHeight, offsetX, offsetY);
+            } else {
+                LOGGER.debug("RePack: BrewingGuideMixin - Brewing guide '{}' is disabled in config.", guideConfig.id);
             }
-
-            // Перевірка, чи текстура існує перед рендерингом (не обов'язково, але корисно для відладки)
-            // Примітка: Minecraft може кинути виняток, якщо текстура не знайдена, тому це більше для логування.
-            // try {
-            //     Minecraft.getInstance().getTextureManager().bindForSetup(guideTexture);
-            // } catch (Exception e) {
-            //     LOGGER.error("RePack: Failed to bind brewing guide texture: {}", guideTexture, e);
-            //     return; // Не рендеримо, якщо текстура не завантажилася
-            // }
-
-            pGuiGraphics.blit(guideTexture, renderX, renderY, 0, 0, textureWidth, textureHeight);
-
-            LOGGER.debug("RePack: BrewingGuideMixin - Blit called for guide. Position: X={}, Y={}, Size: W={}, H={}. Offset: {},{}", renderX, renderY, textureWidth, textureHeight, offsetX, offsetY);
-        } else {
-            LOGGER.debug("RePack: BrewingGuideMixin - Brewing guide is disabled in config.");
         }
     }
 }
