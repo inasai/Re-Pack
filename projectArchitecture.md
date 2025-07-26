@@ -9,12 +9,10 @@
     │               ├── config
     │               │   └── RePackConfig.java
     │               ├── event
-    │               │   └── ClientSetup.java
+    │               │   ├── ClientSetup.java
+    │               │   └── DeathEventHandler.java
     │               ├── mixin
-    │               │   ├── accessor
-    │               │   │   └── ILivingEntityAccessor.java
-    │               │   ├── MixinBrewingStandScreen.java
-    │               │   └── MixinLocalPlayer.java
+    │               │   └── MixinBrewingStandScreen.java
     │               ├── RePack.java
     │               └── sound
     │                   └── ModSounds.java
@@ -31,12 +29,13 @@
         │       └── textures
         │           └── gui
         │               └── brewing_guide
-        │                   ├── default.png
-        │                   └── simple.png
+        │                   ├── guide1.png
+        │                   └── guide2.png
         ├── META-INF
+        │   ├── accesstransformer.cfg
         │   └── mods.toml
         ├── pack.mcmeta
         └── repack.mixins.json
 
-20 directories, 17 files
+19 directories, 17 files
 ```

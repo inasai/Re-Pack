@@ -6,7 +6,8 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [],
   "client": [
-    "MixinBrewingStandScreen"
+    "MixinBrewingStandScreen",
+    "MixinGameRenderer"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -58,12 +58,24 @@ public class DeathEventHandler {
                     }
 
                     RePackConfig.ScreenEffectType effectType = RePackConfig.specialDeathScreenEffect.get();
-                    if (effectType != RePackConfig.ScreenEffectType.NONE) {
-                        isSpecialDeathEffectActive = true;
-                        effectStartTime = System.currentTimeMillis();
+                    if (effectType == RePackConfig.ScreenEffectType.PARTICLES) {
+                        // Логіка для частинок залишається тут, якщо вона не винесена
+                        SpecialScreenEffects.isShakeEffectActive = false; // Переконайтеся, що тряска не активна, якщо обрано частинки
+                        DeathEventHandler.isSpecialDeathEffectActive = true; // Для частинок
+                        DeathEventHandler.effectStartTime = System.currentTimeMillis(); // Для частинок
+                        LOGGER.info("RePack: DeathEventHandler - Triggering screen effect: {}.", effectType);
+                    } else if (effectType == RePackConfig.ScreenEffectType.SHAKE) {
+                        SpecialScreenEffects.activateShakeEffect();
+                        DeathEventHandler.isSpecialDeathEffectActive = false; // Для частинок
+                        LOGGER.info("RePack: DeathEventHandler - Triggering screen effect: {}.", effectType);
+                    } else if (effectType == RePackConfig.ScreenEffectType.GIF) {
+                        // TODO: Активувати GIF ефект. Реалізація буде пізніше.
+                        SpecialScreenEffects.isShakeEffectActive = false; // Переконайтеся, що тряска не активна
+                        DeathEventHandler.isSpecialDeathEffectActive = false; // Для частинок
                         LOGGER.info("RePack: DeathEventHandler - Triggering screen effect: {}.", effectType);
                     } else {
-                        isSpecialDeathEffectActive = false;
+                        SpecialScreenEffects.isShakeEffectActive = false;
+                        DeathEventHandler.isSpecialDeathEffectActive = false;
                         LOGGER.info("RePack: DeathEventHandler - Screen effect is NONE, no effect triggered.");
                     }
 
@@ -96,7 +108,7 @@ public class DeathEventHandler {
     public static void onClientTick(TickEvent.ClientTickEvent event) {
         if (event.phase == TickEvent.Phase.END && Minecraft.getInstance().player != null && Minecraft.getInstance().level != null) {
             if (isSpecialDeathEffectActive && RePackConfig.specialDeathScreenEffect.get() == RePackConfig.ScreenEffectType.PARTICLES) {
-                if (System.currentTimeMillis() - effectStartTime < EFFECT_DURATION_MS) {
+                if (System.currentTimeMillis() - effectStartTime < EFFECT_DURATION_MS) { // Використовуємо EFFECT_DURATION_MS для частинок
                     for (int i = 0; i < 10; i++) {
                         Minecraft.getInstance().level.addParticle(
                                 ParticleTypes.SMOKE, // Тип частинки (диму)
