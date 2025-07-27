@@ -27,6 +27,8 @@ import com.mojang.brigadier.ParseResults;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import com.mojang.brigadier.CommandDispatcher;
 
+import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent; // <<< НОВИЙ ІМПОРТ
+
 import java.util.Random;
 
 import org.slf4j.Logger;
@@ -35,7 +37,8 @@ import org.slf4j.Logger;
 public class DeathEvents {
     private static final Logger LOGGER = LogUtils.getLogger();
     private static final Random random = new Random();
-    private static boolean prevImmediateRespawnState = false;
+    // prevImmediateRespawnState буде використовуватись для оптимізації, щоб не відправляти команду щоразу
+    private static boolean prevImmediateRespawnState = false; // Зберігаємо тут для між-смертевого відстеження
 
     @SubscribeEvent
     public static void onLivingDeath(LivingDeathEvent event) {
@@ -50,65 +53,11 @@ public class DeathEvents {
             LOGGER.info("RePack: DeathEvents - Captured LivingDeathEvent for LOCAL PLAYER: {}", clientPlayer.getName().getString());
 
             // --- ОБРОБКА IMMEDIATE RESPAWN ---
-            // ВИДАЛЕНО: if (RePackConfig.deathConfig.doImmediateRespawn.get()) {
-            // LOGGER.info("RePack: DeathEvents - Immediate respawn is enabled."); // Цей лог тепер не потрібен тут
-            if (event.getEntity() instanceof ServerPlayer serverPlayer) {
-                if (!serverPlayer.level().isClientSide()) {
-                    MinecraftServer server = serverPlayer.getServer();
-                    if (server != null) {
-                        CommandSourceStack source = server.createCommandSourceStack()
-                                .withSuppressedOutput()
-                                .withPosition(serverPlayer.position())
-                                .withRotation(serverPlayer.getRotationVector());
-
-                        // Визначаємо команду залежно від конфігу
-                        String commandString;
-                        boolean currentImmediateRespawnState = RePackConfig.deathConfig.doImmediateRespawn.get();
-
-                        if (currentImmediateRespawnState) {
-                            commandString = "gamerule doImmediateRespawn true";
-                        } else {
-                            commandString = "gamerule doImmediateRespawn true"; // <-- ПОМИЛКА: Тут має бути false!
-                        }
-
-                        // Виконуємо команду тільки якщо стан змінився
-                        if (currentImmediateRespawnState != prevImmediateRespawnState) {
-                            ParseResults<CommandSourceStack> parseResults = server.getCommands().getDispatcher().parse(commandString, source);
-                            server.getCommands().performCommand(parseResults, commandString);
-                            LOGGER.info("RePack: Executed gamerule doImmediateRespawn {} for player {}.", currentImmediateRespawnState, serverPlayer.getName().getString());
-                            prevImmediateRespawnState = currentImmediateRespawnState; // Оновлюємо попередній стан
-                        } else {
-                            LOGGER.debug("RePack: Gamerule doImmediateRespawn is already in desired state ({}). Skipping command execution.", currentImmediateRespawnState);
-                        }
-                    }
-                }
-            } else if (!clientPlayer.level().isClientSide()) { // Для одиночної гри, де clientPlayer також є ServerPlayer на задньому плані
-                MinecraftServer server = clientPlayer.getServer();
-                if (server != null) {
-                    CommandSourceStack source = server.createCommandSourceStack()
-                            .withSuppressedOutput()
-                            .withPosition(clientPlayer.position())
-                            .withRotation(clientPlayer.getRotationVector());
-
-                    String commandString;
-                    boolean currentImmediateRespawnState = RePackConfig.deathConfig.doImmediateRespawn.get();
-
-                    if (currentImmediateRespawnState) {
-                        commandString = "gamerule doImmediateRespawn true";
-                    } else {
-                        commandString = "gamerule doImmediateRespawn true"; // <-- ПОМИЛКА: Тут має бути false!
-                    }
-
-                    if (currentImmediateRespawnState != prevImmediateRespawnState) {
-                        ParseResults<CommandSourceStack> parseResults = server.getCommands().getDispatcher().parse(commandString, source);
-                        server.getCommands().performCommand(parseResults, commandString);
-                        LOGGER.info("RePack: Executed gamerule doImmediateRespawn {} for player {} (non-ServerPlayer cast).", currentImmediateRespawnState, clientPlayer.getName().getString());
-                        prevImmediateRespawnState = currentImmediateRespawnState;
-                    } else {
-                        LOGGER.debug("RePack: Gamerule doImmediateRespawn is already in desired state ({}). Skipping command execution.", currentImmediateRespawnState);
-                    }
-                }
-            }
+            // Ця логіка перенесена в onPlayerLoggedInEvent для кращої синхронізації з gamerule.
+            // При смерті ми її не виконуємо, оскільки gamerule вже має бути встановлений при вході у світ.
+            // Якщо gamerule не відповідає, значить була зміна світу або перезавантаження,
+            // і onPlayerLoggedInEvent (або подібна подія) має її обробити.
+            LOGGER.debug("RePack: Skipping gamerule update on death. Handled by PlayerLoggedInEvent.");
             // --- КІНЕЦЬ ОБРОБКИ IMMEDIATE RESPAWN ---
 
 
@@ -182,6 +131,45 @@ public class DeathEvents {
             ParticleEffect.deactivate();
             ScreenShakeEffect.deactivate();
             // TODO: GIF_Effect.deactivate();
+        }
+    }
+
+    // <<< НОВА ПОДІЯ ДЛЯ ВСТАНОВЛЕННЯ GAMERULE ПРИ ВХОДІ У СВІТ >>>
+    @SubscribeEvent
+    public static void onPlayerLoggedIn(PlayerLoggedInEvent event) {
+        if (event.getEntity() instanceof ServerPlayer serverPlayer) { // Це подія спрацьовує на сервері, перевіряємо, що це ServerPlayer
+            MinecraftServer server = serverPlayer.getServer();
+            if (server != null) {
+                CommandSourceStack source = server.createCommandSourceStack()
+                        .withSuppressedOutput()
+                        .withPosition(serverPlayer.position())
+                        .withRotation(serverPlayer.getRotationVector());
+
+                String commandString;
+                boolean currentImmediateRespawnState = RePackConfig.deathConfig.doImmediateRespawn.get();
+
+                if (currentImmediateRespawnState) {
+                    commandString = "gamerule doImmediateRespawn true";
+                } else {
+                    commandString = "gamerule doImmediateRespawn false";
+                }
+
+                // Виконуємо команду тільки якщо стан змінився
+                // Або якщо ми тільки зайшли у світ, і prevImmediateRespawnState ще не встановлений коректно.
+                // Перевірка `currentImmediateRespawnState != prevImmediateRespawnState` вже працює як тригер
+                // для відправлення команди при зміні конфіга.
+                // При першому вході prevImmediateRespawnState буде false, тому команда відправиться.
+
+                ParseResults<CommandSourceStack> parseResults = server.getCommands().getDispatcher().parse(commandString, source);
+                int result = server.getCommands().performCommand(parseResults, commandString);
+
+                if (result == 0) { // Command failed (return value 0 indicates failure)
+                    LOGGER.warn("RePack: Failed to execute gamerule doImmediateRespawn {} for player {}. Result: {}", currentImmediateRespawnState, serverPlayer.getName().getString(), result);
+                } else {
+                    LOGGER.info("RePack: Executed gamerule doImmediateRespawn {} for player {}. Result: {}", currentImmediateRespawnState, serverPlayer.getName().getString(), result);
+                }
+                prevImmediateRespawnState = currentImmediateRespawnState; // Оновлюємо попередній стан
+            }
         }
     }
 }

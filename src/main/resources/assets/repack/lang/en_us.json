@@ -29,7 +29,7 @@
   "repack.config.guide.brewingGuideHeight.tooltip": "Set the height of this guide part image in pixels. MUST match your PNG file!",
 
   "repack.config.death.doImmediateRespawn": "Immediate Respawn",
-  "repack.config.death.doImmediateRespawn.tooltip": "Togle Immediate Respawn",
+  "repack.config.death.doImmediateRespawn.tooltip": "If enabled, the player respawns instantly without a death screen.\n§cNeeds to be reconnected to the world!",
 
   "repack.subtitle.witch_whispers": "The Witch Whispers",
   "repack.subtitle.witch_calls": "The Witch Calls"
