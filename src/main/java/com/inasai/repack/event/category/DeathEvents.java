@@ -6,6 +6,7 @@ import com.inasai.repack.config.category.DeathConfig;
 import com.inasai.repack.sound.ModSounds;
 import com.inasai.repack.effect.ParticleEffect;
 import com.inasai.repack.effect.ScreenShakeEffect;
+import com.inasai.repack.effect.GifEffect;
 
 import com.mojang.logging.LogUtils;
 
@@ -80,19 +81,22 @@ public class DeathEvents {
                     if (effectType == DeathConfig.ScreenEffectType.PARTICLES) {
                         ParticleEffect.activate();
                         ScreenShakeEffect.deactivate();
+                        GifEffect.deactivate();
                         LOGGER.info("RePack: DeathEvents - Triggering screen effect: {}.", effectType);
                     } else if (effectType == DeathConfig.ScreenEffectType.SHAKE) {
                         ScreenShakeEffect.activate();
                         ParticleEffect.deactivate();
+                        GifEffect.deactivate();
                         LOGGER.info("RePack: DeathEvents - Triggering screen effect: {}.", effectType);
                     } else if (effectType == DeathConfig.ScreenEffectType.GIF) {
-                        // TODO: Активувати GIF ефект. Реалізація буде пізніше.
+                        GifEffect.activate();
                         ParticleEffect.deactivate();
                         ScreenShakeEffect.deactivate();
                         LOGGER.info("RePack: DeathEvents - Triggering screen effect: {}. (GIF not yet implemented)", effectType);
                     } else {
                         ParticleEffect.deactivate();
                         ScreenShakeEffect.deactivate();
+                        GifEffect.deactivate();
                         LOGGER.info("RePack: DeathEvents - Screen effect is NONE, no effect triggered.");
                     }
 
@@ -112,6 +116,7 @@ public class DeathEvents {
                 LOGGER.debug("RePack: DeathEvents - Death sounds disabled in config.");
                 ParticleEffect.deactivate();
                 ScreenShakeEffect.deactivate();
+                GifEffect.deactivate();
             }
         } else {
             if (event.getEntity() != null) {
@@ -121,6 +126,7 @@ public class DeathEvents {
             }
             ParticleEffect.deactivate();
             ScreenShakeEffect.deactivate();
+            GifEffect.deactivate();
         }
     }
 
@@ -130,7 +136,7 @@ public class DeathEvents {
             LOGGER.info("RePack: Local Player respawned. Resetting screen effects.");
             ParticleEffect.deactivate();
             ScreenShakeEffect.deactivate();
-            // TODO: GIF_Effect.deactivate();
+            GifEffect.deactivate();
         }
     }
 
