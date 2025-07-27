@@ -19,17 +19,19 @@ public class ModSounds {
     public static final DeferredRegister<SoundEvent> SOUND_EVENTS =
             DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, RePack.MOD_ID);
 
-    public static final RegistryObject<SoundEvent> CUSTOM_DEATH_SOUND =
-            SOUND_EVENTS.register("custom_death", () -> {
-                ResourceLocation loc = ResourceLocation.fromNamespaceAndPath(RePack.MOD_ID, "custom_death");
-                LOGGER.info("RePack: Registering custom death sound: {}", loc);
+    // Перейменовано custom_death на witchWhispers
+    public static final RegistryObject<SoundEvent> WITCH_WHISPERS_SOUND =
+            SOUND_EVENTS.register("witch_whispers", () -> {
+                ResourceLocation loc = ResourceLocation.fromNamespaceAndPath(RePack.MOD_ID, "witch_whispers");
+                LOGGER.info("RePack: Registering sound: {}", loc);
                 return SoundEvent.createVariableRangeEvent(loc);
             });
 
-    public static final RegistryObject<SoundEvent> SPECIAL_DEATH_SOUND =
-            SOUND_EVENTS.register("special_death", () -> {
-                ResourceLocation loc = ResourceLocation.fromNamespaceAndPath(RePack.MOD_ID, "special_death");
-                LOGGER.info("RePack: Registering special death sound: {}", loc);
+    // Перейменовано special_death на witchCalls
+    public static final RegistryObject<SoundEvent> WITCH_CALLS_SOUND =
+            SOUND_EVENTS.register("witch_calls", () -> {
+                ResourceLocation loc = ResourceLocation.fromNamespaceAndPath(RePack.MOD_ID, "witch_calls");
+                LOGGER.info("RePack: Registering sound: {}", loc);
                 return SoundEvent.createVariableRangeEvent(loc);
             });
 

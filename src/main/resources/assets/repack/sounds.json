@@ -1,20 +1,20 @@
 {
-  "custom_death": {
+  "witch_whispers": {
     "sounds": [
       {
-        "name": "repack:custom_death",
+        "name": "repack:witch_whispers",
         "stream": false
       }
     ],
-    "subtitle": "repack.subtitle.custom_death"
+    "subtitle": "repack.subtitle.witch_whispers"
   },
-  "special_death": {
+  "witch_calls": {
     "sounds": [
       {
-        "name": "repack:special_death",
+        "name": "repack:witch_calls",
         "stream": false
       }
     ],
-    "subtitle": "repack.subtitle.special_death"
+    "subtitle": "repack.subtitle.witch_calls"
   }
 }

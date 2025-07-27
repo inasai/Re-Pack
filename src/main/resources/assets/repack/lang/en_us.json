@@ -28,6 +28,9 @@
   "repack.config.guide.brewingGuideHeight": "Guide Height",
   "repack.config.guide.brewingGuideHeight.tooltip": "Set the height of this guide part image in pixels. MUST match your PNG file!",
 
-  "repack.subtitle.custom_death": "The Witch Whispers",
-  "repack.subtitle.special_death": "The Witch Calls"
+  "repack.config.death.doImmediateRespawn": "Immediate Respawn",
+  "repack.config.death.doImmediateRespawn.tooltip": "Togle Immediate Respawn",
+
+  "repack.subtitle.witch_whispers": "The Witch Whispers",
+  "repack.subtitle.witch_calls": "The Witch Calls"
 }

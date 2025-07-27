@@ -3,7 +3,7 @@
   "repack.config.title": "Налаштування Re: Pack",
   "repack.config.category.death": "Налаштування Смерті",
   "repack.config.death.enableSounds": "Увімкнути власні звуки смерті",
-"repack.config.death.enableSounds.tooltip": "Якщо увімкнено, відтворюватимуться власні звуки після смерті.",
+  "repack.config.death.enableSounds.tooltip": "Якщо увімкнено, відтворюватимуться власні звуки після смерті.",
   "repack.config.death.specialChance": "Шанс особливої смерті (1/X)",
   "repack.config.death.specialChance.tooltip": "Шанс на особливу подію смерті (1 з X смертей). Більше число означає рідше.",
   "repack.config.death.screenEffect": "Ефект екрану особливої смерті",
@@ -28,6 +28,9 @@
   "repack.config.guide.brewingGuideHeight": "Висота гайду",
   "repack.config.guide.brewingGuideHeight.tooltip": "Встановіть висоту зображення гайду в пікселях. Як у файлі .png!",
 
-  "repack.subtitle.custom_death": "Відьма шепоче",
-  "repack.subtitle.special_death": "Відьма кличе"
+  "repack.config.death.doImmediateRespawn": "Миттєве відродження",
+  "repack.config.death.doImmediateRespawn.tooltip": "Перемикає миттєве відродження",
+
+  "repack.subtitle.witch_whispers": "Відьма шепоче",
+  "repack.subtitle.witch_calls": "Відьма кличе"
 }

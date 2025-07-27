@@ -2,7 +2,7 @@ package com.inasai.repack.mixin;
 
 import com.inasai.repack.RePack;
 import com.inasai.repack.config.RePackConfig;
-import com.inasai.repack.config.RePackConfig.BrewingGuideConfig;
+import com.inasai.repack.config.category.GuideConfig; // Змінено імпорт на новий GuideConfig
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.logging.LogUtils;
@@ -36,7 +36,8 @@ public abstract class MixinBrewingStandScreen extends AbstractContainerScreen<Br
 
     @Inject(method = "renderBg", at = @At("TAIL"))
     protected void repack_renderBrewingGuide(GuiGraphics pGuiGraphics, float pPartialTick, int pMouseX, int pMouseY, CallbackInfo ci) {
-        for (BrewingGuideConfig guideConfig : RePackConfig.BREWING_GUIDES) {
+        // Тепер отримуємо доступ до конфігурацій гайдів через RePackConfig.guideConfig
+        for (GuideConfig.BrewingGuideConfig guideConfig : RePackConfig.guideConfig.BREWING_GUIDES) {
             if (guideConfig.enableBrewingGuide.get()) {
                 String style = guideConfig.brewingGuideStyle.get();
                 ResourceLocation guideTexture = ResourceLocation.fromNamespaceAndPath(RePack.MOD_ID, "textures/gui/brewing_guide/" + style + ".png");
@@ -50,7 +51,7 @@ public abstract class MixinBrewingStandScreen extends AbstractContainerScreen<Br
                 int textureHeight = guideConfig.brewingGuideHeight.get();
                 int offsetX = guideConfig.brewingGuideOffsetX.get();
                 int offsetY = guideConfig.brewingGuideOffsetY.get();
-                RePackConfig.GuidePosition position = guideConfig.brewingGuidePosition.get();
+                GuideConfig.GuidePosition position = guideConfig.brewingGuidePosition.get(); // Змінено на GuideConfig.GuidePosition
 
                 int renderX = 0;
                 int renderY = 0;
