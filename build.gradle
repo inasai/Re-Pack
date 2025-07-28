@@ -72,11 +72,9 @@ repositories {
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     implementation fg.deobf("me.shedaniel.cloth:cloth-config-forge:11.1.106")
-    // Додаємо залежність для Mixin
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
 
-// Конфігурація для Mixin Gradle плагіна
 mixin {
     add sourceSets.main, "repack.mixins.refmap.json"
     config "repack.mixins.json"

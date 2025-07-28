@@ -2,6 +2,7 @@ package com.inasai.repack.config;
 
 import com.inasai.repack.config.category.DeathConfig;
 import com.inasai.repack.config.category.GuideConfig;
+
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import me.shedaniel.clothconfig2.api.AbstractConfigListEntry;
@@ -12,19 +13,17 @@ import net.minecraft.network.chat.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
+//import java.util.function.Function;
 
 public class RePackConfig {
     public static final ForgeConfigSpec CLIENT_SPEC;
 
-    // Створюємо екземпляри класів конфігурації для кожної категорії
     public static DeathConfig deathConfig;
     public static GuideConfig guideConfig;
 
     static {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
 
-        // Ініціалізуємо конфігурації
         deathConfig = new DeathConfig(builder);
         guideConfig = new GuideConfig(builder);
 
@@ -38,14 +37,13 @@ public class RePackConfig {
 
         ConfigEntryBuilder entryBuilder = builder.entryBuilder();
 
-        // Death Category (Тепер використовуємо DeathConfig)
         builder.getOrCreateCategory(Component.translatable("repack.config.category.death"))
                 .addEntry(entryBuilder.startBooleanToggle(Component.translatable("repack.config.death.enableSounds"), deathConfig.enableDeathSounds.get())
                         .setDefaultValue(true)
                         .setTooltip(Component.translatable("repack.config.death.enableSounds.tooltip"))
                         .setSaveConsumer(deathConfig.enableDeathSounds::set)
                         .build())
-                .addEntry(entryBuilder.startBooleanToggle(Component.translatable("repack.config.death.doImmediateRespawn"), deathConfig.doImmediateRespawn.get()) // Новий пункт
+                .addEntry(entryBuilder.startBooleanToggle(Component.translatable("repack.config.death.doImmediateRespawn"), deathConfig.doImmediateRespawn.get())
                         .setDefaultValue(false)
                         .setTooltip(Component.translatable("repack.config.death.doImmediateRespawn.tooltip"))
                         .setSaveConsumer(deathConfig.doImmediateRespawn::set)
@@ -56,18 +54,16 @@ public class RePackConfig {
                         .setTooltip(Component.translatable("repack.config.death.specialChance.tooltip"))
                         .setSaveConsumer(deathConfig.specialDeathChance::set)
                         .build())
-                .addEntry(entryBuilder.startEnumSelector(Component.translatable("repack.config.death.screenEffect"), DeathConfig.ScreenEffectType.class, deathConfig.specialDeathScreenEffect.get()) // Використовуємо DeathConfig.ScreenEffectType
+                .addEntry(entryBuilder.startEnumSelector(Component.translatable("repack.config.death.screenEffect"), DeathConfig.ScreenEffectType.class, deathConfig.specialDeathScreenEffect.get())
                         .setDefaultValue(DeathConfig.ScreenEffectType.SHAKE)
                         .setTooltip(Component.translatable("repack.config.death.screenEffect.tooltip"))
                         .setSaveConsumer(deathConfig.specialDeathScreenEffect::set)
                         .build());
 
-        // Guide Category (Тепер використовуємо GuideConfig)
         var guideCategory = builder.getOrCreateCategory(Component.translatable("repack.config.category.guide"));
 
-        // Додаємо підкатегорії для кожного гайду
-        for (int i = 0; i < GuideConfig.BREWING_GUIDES.size(); i++) { // Змінено з RePackConfig.BREWING_GUIDES
-            GuideConfig.BrewingGuideConfig guide = GuideConfig.BREWING_GUIDES.get(i); // Змінено з RePackConfig.BrewingGuideConfig
+        for (int i = 0; i < GuideConfig.BREWING_GUIDES.size(); i++) {
+            GuideConfig.BrewingGuideConfig guide = GuideConfig.BREWING_GUIDES.get(i);
 
             List<AbstractConfigListEntry> guideEntries = new ArrayList<>();
 
@@ -81,7 +77,7 @@ public class RePackConfig {
                     .setTooltip(Component.translatable("repack.config.guide.brewingGuideStyle.tooltip"))
                     .setSaveConsumer(guide.brewingGuideStyle::set)
                     .build());
-            guideEntries.add(entryBuilder.startEnumSelector(Component.translatable("repack.config.guide.brewingGuidePosition"), GuideConfig.GuidePosition.class, guide.brewingGuidePosition.get()) // Використовуємо GuideConfig.GuidePosition
+            guideEntries.add(entryBuilder.startEnumSelector(Component.translatable("repack.config.guide.brewingGuidePosition"), GuideConfig.GuidePosition.class, guide.brewingGuidePosition.get())
                     .setDefaultValue(guide.brewingGuidePosition.getDefault())
                     .setTooltip(Component.translatable("repack.config.guide.brewingGuidePosition.tooltip"))
                     .setSaveConsumer(guide.brewingGuidePosition::set)
@@ -118,14 +114,10 @@ public class RePackConfig {
         }
 
         builder.setSavingRunnable(() -> {
+            // nothing
             CLIENT_SPEC.save();
         });
 
         return builder.build();
     }
-
-    // Видаляємо старі enum-и та класи, оскільки вони тепер знаходяться в DeathConfig та GuideConfig
-    // public enum ScreenEffectType { ... }
-    // public enum GuidePosition { ... }
-    // public static class BrewingGuideConfig { ... }
 }

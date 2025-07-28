@@ -1,11 +1,11 @@
 package com.inasai.repack.config.category;
 
 import net.minecraftforge.common.ForgeConfigSpec;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class GuideConfig {
-    // ENUM для вибору позиції гайду
     public enum GuidePosition {
         LEFT, RIGHT, TOP, BOTTOM
     }
@@ -13,17 +13,14 @@ public class GuideConfig {
     public static final List<BrewingGuideConfig> BREWING_GUIDES = new ArrayList<>();
 
     public GuideConfig(ForgeConfigSpec.Builder builder) {
-        builder.push("Guide Category"); // Створюємо категорію "Guide Category" в config файлі
+        builder.push("Guide Category");
 
-        // Ініціалізуємо конфігурацію для перших двох частин гайду
-        // Ви можете додати більше BrewingGuideConfig.define() для додаткових частин
-        BREWING_GUIDES.add(BrewingGuideConfig.define(builder, "part1", true, "guide1", GuidePosition.RIGHT, 5, 0, 170, 166));
-        BREWING_GUIDES.add(BrewingGuideConfig.define(builder, "part2", false, "guide2", GuidePosition.RIGHT, 5, 130, 186, 193));
+        BREWING_GUIDES.add(BrewingGuideConfig.define(builder, "part1", true, "guide_1", GuidePosition.LEFT, 5, 0, 145, 160));
+        BREWING_GUIDES.add(BrewingGuideConfig.define(builder, "part2", true, "guide_2", GuidePosition.RIGHT, 5, 0, 186, 193));
 
-        builder.pop(); // Закриваємо категорію
+        builder.pop();
     }
 
-    // КЛАС ДЛЯ КОНФІГУРАЦІЇ КОЖНОГО ПОСІБНИКА
     public static class BrewingGuideConfig {
         public final String id;
         public final ForgeConfigSpec.BooleanValue enableBrewingGuide;
@@ -55,7 +52,7 @@ public class GuideConfig {
                                                 boolean defaultEnable, String defaultStyle,
                                                 GuidePosition defaultPosition, int defaultOffsetX, int defaultOffsetY,
                                                 int defaultWidth, int defaultHeight) {
-            builder.push("BrewingGuide_" + id); // Кожна частина гайду матиме свій унікальний блок в конфіг файлі
+            builder.push("BrewingGuide_" + id);
             ForgeConfigSpec.BooleanValue enable = builder
                     .comment("Enable this brewing guide part.")
                     .define("enable", defaultEnable);

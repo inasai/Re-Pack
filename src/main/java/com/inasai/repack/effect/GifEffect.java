@@ -1,7 +1,7 @@
 package com.inasai.repack.effect;
 
 import com.inasai.repack.RePack;
-import com.mojang.blaze3d.systems.RenderSystem;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.texture.DynamicTexture;
@@ -9,7 +9,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.logging.LogUtils;
+
 import org.slf4j.Logger;
 
 import java.io.IOException;
@@ -36,12 +39,11 @@ public class GifEffect {
     private static int loopCount = 0;
     private static final int MAX_LOOPS = 1;
 
-    // Клас для представлення окремого кадру GIF
     private static class GifFrame {
         public final ResourceLocation textureLocation;
         public final int delayMs;
         public final int width;
-        public final int height; // ТІЛЬКИ ОДНА ЗМІННА 'height'
+        public final int height;
 
         public GifFrame(ResourceLocation textureLocation, int delayMs, int width, int height) {
             this.textureLocation = textureLocation;

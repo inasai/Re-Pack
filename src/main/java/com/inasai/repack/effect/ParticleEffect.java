@@ -1,10 +1,8 @@
 package com.inasai.repack.effect;
 
 import com.inasai.repack.RePack;
-import com.inasai.repack.config.RePackConfig; // Імпорт для доступу до DeathConfig
-import com.inasai.repack.config.category.DeathConfig; // Імпорт для доступу до ScreenEffectType
-
-import com.mojang.logging.LogUtils;
+import com.inasai.repack.config.RePackConfig;
+import com.inasai.repack.config.category.DeathConfig;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.particles.ParticleTypes;
@@ -13,9 +11,11 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.util.Random;
+import com.mojang.logging.LogUtils;
 
 import org.slf4j.Logger;
+
+import java.util.Random;
 
 @Mod.EventBusSubscriber(modid = RePack.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class ParticleEffect {
@@ -24,7 +24,7 @@ public class ParticleEffect {
 
     public static boolean isActive = false;
     private static long startTime = 0;
-    private static final long DURATION_MS = 2000; // Тривалість ефекту частинок (2 секунди)
+    private static final long DURATION_MS = 2500;
 
     public static void activate() {
         isActive = true;
@@ -45,9 +45,9 @@ public class ParticleEffect {
                     for (int i = 0; i < 10; i++) {
                         Minecraft.getInstance().level.addParticle(
                                 ParticleTypes.SMOKE,
-                                Minecraft.getInstance().player.getX() + (random.nextDouble() - 0.5) * 1.0,
-                                Minecraft.getInstance().player.getY() + 0.5 + (random.nextDouble() - 0.5) * 1.0,
-                                Minecraft.getInstance().player.getZ() + (random.nextDouble() - 0.5) * 1.0,
+                                Minecraft.getInstance().player.getX() + (random.nextDouble() - 0.5),
+                                Minecraft.getInstance().player.getY() + 0.5 + (random.nextDouble() - 0.5),
+                                Minecraft.getInstance().player.getZ() + (random.nextDouble() - 0.5),
                                 (random.nextDouble() - 0.5) * 0.05,
                                 0.05 + random.nextDouble() * 0.05,
                                 (random.nextDouble() - 0.5) * 0.05
