@@ -39,8 +39,8 @@
         │       └── textures
         │           └── gui
         │               ├── brewing_guide
-        │               │   ├── guide1.png
-        │               │   └── guide2.png
+        │               │   ├── guide_1.png
+        │               │   └── guide_2.png
         │               └── death_gif_frames
         │                   ├── frame_000.png
         │                   ├── frame_001.png
