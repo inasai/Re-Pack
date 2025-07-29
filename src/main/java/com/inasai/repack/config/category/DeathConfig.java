@@ -4,7 +4,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
 
 public class DeathConfig {
     public enum ScreenEffectType {
-        NONE, SHAKE, PARTICLES, GIF
+        NONE, SHAKE, PARTICLES
     }
 
     public final ForgeConfigSpec.BooleanValue enableDeathSounds;
