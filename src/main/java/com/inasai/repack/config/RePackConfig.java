@@ -113,6 +113,23 @@ public class RePackConfig {
             ).build());
         }
 
+        for (int i = 0; i < GuideConfig.ENCHANTMENT_GUIDES.size(); i++) {
+            GuideConfig.EnchantmentGuideConfig guide = GuideConfig.ENCHANTMENT_GUIDES.get(i);
+
+            List<AbstractConfigListEntry> enchantmentGuideEntries = new ArrayList<>();
+
+            enchantmentGuideEntries.add(entryBuilder.startBooleanToggle(Component.translatable("repack.config.guide.enableEnchantmentGuide"), guide.enableEnchantmentGuide.get())
+                    .setDefaultValue(guide.enableEnchantmentGuide.getDefault())
+                    .setTooltip(Component.translatable("repack.config.guide.enableEnchantmentGuide.tooltip"))
+                    .setSaveConsumer(guide.enableEnchantmentGuide::set)
+                    .build());
+
+            guideCategory.addEntry(entryBuilder.startSubCategory(
+                    Component.translatable("repack.config.guide.subCategory." + guide.id), // Це буде "enchantment"
+                    enchantmentGuideEntries
+            ).build());
+        }
+
         builder.setSavingRunnable(() -> {
             // nothing
             CLIENT_SPEC.save();

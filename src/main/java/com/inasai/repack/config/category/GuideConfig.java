@@ -11,12 +11,17 @@ public class GuideConfig {
     }
 
     public static final List<BrewingGuideConfig> BREWING_GUIDES = new ArrayList<>();
+    public static final List<EnchantmentGuideConfig> ENCHANTMENT_GUIDES = new ArrayList<>(); // НОВЕ: Список для гайдів зачарувань
 
     public GuideConfig(ForgeConfigSpec.Builder builder) {
         builder.push("Guide Category");
 
+        // Існуючі гайди зіллєваріння
         BREWING_GUIDES.add(BrewingGuideConfig.define(builder, "part1", true, "guide_1", GuidePosition.LEFT, 5, 0, 145, 160));
         BREWING_GUIDES.add(BrewingGuideConfig.define(builder, "part2", true, "guide_2", GuidePosition.RIGHT, 5, 0, 186, 193));
+
+        // НОВЕ: Додаємо гайд для столу зачарувань
+        ENCHANTMENT_GUIDES.add(EnchantmentGuideConfig.define(builder, "enchantment", true)); // Один гайд для зачарувань
 
         builder.pop();
     }
@@ -76,6 +81,26 @@ public class GuideConfig {
                     .defineInRange("height", defaultHeight, 1, 1024);
             builder.pop();
             return new BrewingGuideConfig(id, enable, style, position, offsetX, offsetY, width, height);
+        }
+    }
+
+    // НОВЕ: Клас конфігурації для Гайду Зачарувань
+    public static class EnchantmentGuideConfig {
+        public final String id;
+        public final ForgeConfigSpec.BooleanValue enableEnchantmentGuide;
+
+        private EnchantmentGuideConfig(String id, ForgeConfigSpec.BooleanValue enableEnchantmentGuide) {
+            this.id = id;
+            this.enableEnchantmentGuide = enableEnchantmentGuide;
+        }
+
+        public static EnchantmentGuideConfig define(ForgeConfigSpec.Builder builder, String id, boolean defaultEnable) {
+            builder.push("EnchantmentGuide_" + id); // Це буде EnchantmentGuide_enchantment
+            ForgeConfigSpec.BooleanValue enable = builder
+                    .comment("Enable the enchantment guide that shows all possible enchantments on the enchanting table.")
+                    .define("enable", defaultEnable);
+            builder.pop();
+            return new EnchantmentGuideConfig(id, enable);
         }
     }
 }

@@ -12,7 +12,6 @@
     │               │   │   └── GuideConfig.java
     │               │   └── RePackConfig.java
     │               ├── effect
-    │               │   ├── GifEffect.java
     │               │   ├── ParticleEffect.java
     │               │   └── ScreenShakeEffect.java
     │               ├── event
@@ -21,6 +20,7 @@
     │               │   │   └── GuideEvents.java
     │               │   └── ClientSetup.java
     │               ├── mixin
+    │               │   ├── EnchantmentScreenMixin.java
     │               │   ├── MixinBrewingStandScreen.java
     │               │   └── MixinGameRenderer.java
     │               ├── RePack.java

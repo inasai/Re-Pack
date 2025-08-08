@@ -1,18 +1,22 @@
 {
   "itemGroup.repack.main": "Re: Pack",
   "repack.config.title": "Налаштування Re: Pack",
+
   "repack.config.category.death": "Налаштування Смерті",
+
   "repack.config.death.enableSounds": "Увімкнути власні звуки смерті",
   "repack.config.death.enableSounds.tooltip": "Якщо увімкнено, відтворюватимуться власні звуки після смерті.",
   "repack.config.death.specialChance": "Шанс особливої смерті (1/X)",
   "repack.config.death.specialChance.tooltip": "Шанс на особливу подію смерті (1 з X смертей). Більше число означає рідше.",
   "repack.config.death.screenEffect": "Ефект екрану особливої смерті",
   "repack.config.death.screenEffect.tooltip": "Оберіть візуальний ефект для особливої смерті.",
+  "repack.config.death.doImmediateRespawn": "Миттєве відродження",
+  "repack.config.death.doImmediateRespawn.tooltip": "Якщо увімкнено, гравець відроджується миттєво без екрану смерті.\n§cПотребує перепідключення до світ!",
+
   "repack.config.category.guide": "Налаштування Посібника",
 
   "repack.config.guide.subCategory.part1": "Гайд зіллєваріння, Частина 1",
   "repack.config.guide.subCategory.part2": "Гайд зіллєваріння, Частина 2",
-
   "repack.config.guide.enableBrewingGuide": "Увімкнути посібник варіння зілля",
   "repack.config.guide.enableBrewingGuide.tooltip": "Якщо увімкнено, зображення посібника буде відображатися в інтерфейсі стійки для варіння зілля.",
   "repack.config.guide.brewingGuideStyle": "Зображення посібника варіння зілля",
@@ -28,8 +32,9 @@
   "repack.config.guide.brewingGuideHeight": "Висота гайду",
   "repack.config.guide.brewingGuideHeight.tooltip": "Встановіть висоту зображення гайду в пікселях. Як у файлі .png!",
 
-  "repack.config.death.doImmediateRespawn": "Миттєве відродження",
-  "repack.config.death.doImmediateRespawn.tooltip": "Якщо увімкнено, гравець відроджується миттєво без екрану смерті.\n§cПотребує перепідключення до світ!",
+  "repack.config.guide.subCategory.enchantment": "Стіл зачарувань",
+  "repack.config.guide.enableEnchantmentGuide": "Увімкнути посібник зачарувань",
+  "repack.config.guide.enableEnchantmentGuide.tooltip": "Показує всі можливі зачарування на столі зачарувань.",
 
   "repack.subtitle.witch_whispers": "Відьма шепоче",
   "repack.subtitle.witch_calls": "Відьма кличе"

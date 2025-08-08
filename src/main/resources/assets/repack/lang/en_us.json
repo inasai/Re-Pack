@@ -1,18 +1,22 @@
 {
   "itemGroup.repack.main": "Re: Pack",
   "repack.config.title": "Re: Pack Configuration",
+
   "repack.config.category.death": "Death Settings",
+
   "repack.config.death.enableSounds": "Enable Custom Death Sounds",
   "repack.config.death.enableSounds.tooltip": "If enabled, custom sounds will play upon death.",
   "repack.config.death.specialChance": "Special Death Chance (1/X)",
   "repack.config.death.specialChance.tooltip": "The chance for a special death event (1 in X deaths). Higher number means less frequent.",
   "repack.config.death.screenEffect": "Special Death Screen Effect",
   "repack.config.death.screenEffect.tooltip": "Choose the visual effect for special death.",
+  "repack.config.death.doImmediateRespawn": "Immediate Respawn",
+  "repack.config.death.doImmediateRespawn.tooltip": "If enabled, the player respawns instantly without a death screen.\n§cNeeds to be reconnected to the world!",
+
   "repack.config.category.guide": "Guide Settings",
 
   "repack.config.guide.subCategory.part1": "Brewing Guide Part 1",
   "repack.config.guide.subCategory.part2": "Brewing Guide Part 2",
-
   "repack.config.guide.enableBrewingGuide": "Enable Guide Part",
   "repack.config.guide.enableBrewingGuide.tooltip": "If enabled, this part of the guide image will be shown in the brewing stand GUI.",
   "repack.config.guide.brewingGuideStyle": "Guide Image Name",
@@ -28,8 +32,9 @@
   "repack.config.guide.brewingGuideHeight": "Guide Height",
   "repack.config.guide.brewingGuideHeight.tooltip": "Set the height of this guide part image in pixels. MUST match your PNG file!",
 
-  "repack.config.death.doImmediateRespawn": "Immediate Respawn",
-  "repack.config.death.doImmediateRespawn.tooltip": "If enabled, the player respawns instantly without a death screen.\n§cNeeds to be reconnected to the world!",
+  "repack.config.guide.subCategory.enchantment": "Enchanting Table",
+  "repack.config.guide.enableEnchantmentGuide": "Enable Enchanting Guide",
+  "repack.config.guide.enableEnchantmentGuide.tooltip": "Shows all possible enchantments on the enchanting table.",
 
   "repack.subtitle.witch_whispers": "The Witch Whispers",
   "repack.subtitle.witch_calls": "The Witch Calls"
